@@ -1,24 +1,25 @@
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 
-import VideoCard from '../../components/Video/VideoCard'
+import VideoCard from '../../components/Video/VideoCard';
+import { useYoutubeApi } from '../../context/YoutubeApiContext';
 
 export default function Videos() {
     const { keyword } = useParams();
-    const {isLoading, error, data: videos} = useQuery(['videos', keyword], async() => {
-        return fetch(`/videos/${keyword ? 'search' : 'popular'}.json`)
-            .then(res => res.json())
-            .then(data => data.items)
-    });
+    const { youtube } = useYoutubeApi();
+    const {isLoading, error, data: videos} = useQuery(
+        ['videos', keyword],
+        () => youtube.search(keyword)
+    );
 
     return (
-        <section className="p-4 sm:ml-64">
-            <p className="text-2xl text-white">
+        <section className='p-4 sm:ml-64'>
+            <p className='mb-5 text-2xl text-white'>
                 {keyword ? `${keyword}` : 'Hot Trend'} Vidoes
             </p>
 
-            {isLoading && <p>Loading...</p>}
-            {error && <p>Error...</p>}
+            {isLoading && <p className='text-2xl text-white'>Loading...</p>}
+            {error && <p className='text-2xl text-white'>Error...</p>}
             {videos && (
                 <ul>
                     {videos.map((video) => (
