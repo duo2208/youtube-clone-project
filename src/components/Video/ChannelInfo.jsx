@@ -6,7 +6,7 @@ export default function ChannelInfo({id}) {
     const { youtube } = useYoutubeApi();
     const { isLoading, error, data: channelInfo } = useQuery(
         ['channelInfo', id],
-        () => youtube.channelInfo(id)
+        () => youtube.channelInfo(id), { staleTime: 1000 * 60 *  5 }
     );
 
     return (

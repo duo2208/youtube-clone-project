@@ -7,7 +7,7 @@ export default function RelatedVideos({id}) {
     const { youtube } = useYoutubeApi();
     const { isLoading, error, data: relatedVideos } = useQuery(
         ['relatedVideos', id],
-        () => youtube.relatedVideos(id)
+        () => youtube.relatedVideos(id), { staleTime: 1000 * 60 *  5 }
     );
 
     return (
