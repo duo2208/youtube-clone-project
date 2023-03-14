@@ -11,7 +11,6 @@ function App() {
   return (
     <>
       <Navbar/>
-      <Sidebar/>
       <YoutubeApiProvider>
         <QueryClientProvider client={queryClient}>
           <Outlet/>

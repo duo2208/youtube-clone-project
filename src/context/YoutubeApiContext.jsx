@@ -9,7 +9,7 @@ export function YoutubeApiProvider({ children }) {
     // const youtube = new MockYoutube();
     const youtube = new Youtube();
 
-    return <YoutubeApiContext.Provider value={{youtube}}>
+    return <YoutubeApiContext.Provider value={{ youtube }}>
          { children }
     </YoutubeApiContext.Provider>
 }

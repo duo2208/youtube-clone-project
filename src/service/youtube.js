@@ -13,6 +13,28 @@ export default class Youtube {
         return keyword ? this.#searchByKeyword(keyword) : this.#mostPopular()
     }
 
+    async channelInfo(id) {
+        return this.httpClient.get('channels', {
+            params: {
+                part: 'snippet',
+                id: id
+            }
+        })
+        .then(res => res.data.items[0].snippet);
+    }
+
+    async relatedVideos(id) {
+        return this.httpClient.get('search', {
+            params: {
+                part: 'snippet',
+                maxResults: 25,
+                type: 'video',
+                relatedToVideoId: id,
+            }
+        })
+        .then(res => res.data.items.map((item) => ({...item, id: item.id.videoId})))     // cordinate the id format
+    }
+
     async #searchByKeyword(keyword) {
         return this.httpClient.get('search', {
             params: {
@@ -21,22 +43,18 @@ export default class Youtube {
                 type: 'video',
                 q: keyword
             }
-            })
-            .then(res => res.data.items)
-            .then(items => {
-                console.log(items);
-                return items.map(items => ({...items, id: items.id.videoId}))   // cordinate the id format
-            })
+        })
+        .then(res => res.data.items.map((item) => ({...item, id: item.id.videoId})))     // cordinate the id format
     }
+
     async #mostPopular() {
-        return this.httpClient
-          .get('videos', {
+        return this.httpClient.get('videos', {
             params: {
-              part: 'snippet',
-              maxResults: 25,
-              chart: 'mostPopular',
+                part: 'snippet',
+                maxResults: 25,
+                chart: 'mostPopular',
             },
-          })
-          .then((res) => res.data.items);
+        })
+        .then((res) => res.data.items);
     }
 }

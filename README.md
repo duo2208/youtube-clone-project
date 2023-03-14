@@ -5,9 +5,11 @@
 * Video search
 * Hot Trend Video
 * Related Video
-* channel
+* Channel info
 
 ## To be update
 * DarkMode & WhiteMode UI
+* Scroll
+* Avartar Component
 
 
