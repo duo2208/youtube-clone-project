@@ -1,9 +1,9 @@
 # Youtube-project with React
-* https://
+* https://moonlit-yeot-e30897.netlify.app/
 
 ## Feature
-* Video search
 * Hot Trend Video
+* Searched Video
 * Related Video
 * Channel info
 
